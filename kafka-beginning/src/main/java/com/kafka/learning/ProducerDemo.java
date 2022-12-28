@@ -13,6 +13,8 @@ import org.apache.kafka.common.serialization.StringSerializer;
  */
 public class ProducerDemo {
 	private static final String BOOTSTRAP_SERVER = "localhost:9092";
+	
+	
 
 	public static void main(String[] args) {
 		// Create producer config
