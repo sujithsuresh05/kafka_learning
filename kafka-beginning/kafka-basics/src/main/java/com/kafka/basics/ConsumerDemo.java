@@ -1,4 +1,4 @@
-package com.kafka.learning;
+package com.kafka.basics;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -9,17 +9,16 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.message.ConsumerProtocolAssignment.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConsumerDemoAssignSeek {
+public class ConsumerDemo {
 
 	private static final String BOOTSTRAP_SERVER = "localhost:9092";
 	private static Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class);
 	private static String topic = "first-topic";
-	private static String group = "first-group-assign-seek";
+	private static String group = "first-group";
 
 	public static void main(String args[]) {
 
@@ -35,12 +34,6 @@ public class ConsumerDemoAssignSeek {
 		// create consumer groups
 		KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
 
-		// assign and seek mostly used to replay data or fetch a slecific message
-		
-		// assign
-		TopicPartition topicPartition = new TopicPartition();
-		topicPartition.setPartitions(null);
-		
 		// subscribe to a topic
 		kafkaConsumer.subscribe(Collections.singleton(topic));
 

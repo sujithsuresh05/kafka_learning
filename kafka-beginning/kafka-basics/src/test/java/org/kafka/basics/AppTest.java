@@ -1,4 +1,4 @@
-package com.kafka.learning;
+package org.kafka.basics;
 
 import static org.junit.Assert.assertTrue;
 
@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * Unit test for simple App.
  */
-public class ProducerDemoTest 
+public class AppTest 
 {
     /**
      * Rigorous Test :-)

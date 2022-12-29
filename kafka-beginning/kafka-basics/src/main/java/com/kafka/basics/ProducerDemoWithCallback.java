@@ -1,4 +1,4 @@
-package com.kafka.learning;
+package com.kafka.basics;
 
 import java.util.Properties;
 
@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
  * Kafka Producer
  *
  */
-public class ProducerDemoKeys {
+public class ProducerDemoWithCallback {
 	private static final String BOOTSTRAP_SERVER = "localhost:9092";
-	private static Logger logger = LoggerFactory.getLogger(ProducerDemoKeys.class);
+	private static Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class);
 
 	public static void main(String[] args) {
 		// Create producer config
@@ -28,10 +28,9 @@ public class ProducerDemoKeys {
 
 		// Create Producer
 		KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(producerConfigProperties);
-		String key = "id_";
 		for (int i = 0; i < 10; i++) {
 			// Create Producer Record
-			ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>("first-topic", key + i,
+			ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>("first-topic",
 					"My message " + i + " from java application");
 
 			// Send Data

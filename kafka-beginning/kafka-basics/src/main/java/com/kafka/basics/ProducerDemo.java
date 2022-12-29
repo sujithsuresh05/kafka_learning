@@ -1,4 +1,4 @@
-package com.kafka.learning;
+package com.kafka.basics;
 
 import java.util.Properties;
 
