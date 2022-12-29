@@ -66,5 +66,6 @@
 	</build>
 	<modules>
 		<module>kafka-basics</module>
-	</modules>
+	  <module>kafka-advanced-elasticsearch</module>
+  </modules>
 </project>
