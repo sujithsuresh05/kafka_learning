@@ -67,5 +67,6 @@
 	<modules>
 		<module>kafka-basics</module>
 	  <module>kafka-advanced-elasticsearch</module>
-  </modules>
+	  <module>kafka-advanced-twitter</module>
+	</modules>
 </project>
