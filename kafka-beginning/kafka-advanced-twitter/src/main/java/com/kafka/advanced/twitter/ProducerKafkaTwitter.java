@@ -13,19 +13,23 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.redouane59.twitter.dto.tweet.Tweet;
+import com.kafka.advanced.tweet.dto.TweetData;
 
 public class ProducerKafkaTwitter {
 	private static Logger logger = LoggerFactory.getLogger(ProducerKafkaTwitter.class.getName());
-	private static final String TWITTER_TOPIC = "twitter_topic_kafka";
+	private static final String TWITTER_TOPIC = "twitter_topic_kafka_new_1";
 
+	public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
+			.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 	public static void main(String args[]) {
 		new ProducerKafkaTwitter().run();
 	}
 
 	public void run() {
 		try {
-
 			// Create tweet fetcher client
 			TweetFetcher twiterClientFetcher = new TweetFetcher("D:/twitter_keys.json");
 			List<Tweet> tweets = twiterClientFetcher.searchForTweets("kafka");
@@ -38,9 +42,9 @@ public class ProducerKafkaTwitter {
 				kafkaProducer.close();
 			}));
 			
-			// loop and send tweets to kafka
-			for (Tweet tw : tweets)
-				kafkaProducer.send(new ProducerRecord<String, String>(TWITTER_TOPIC, null, tw.getText()),
+			for (Tweet tw : tweets) {
+				TweetData tweetData = new TweetData(tw.getId(), tw.getText());
+				kafkaProducer.send(new ProducerRecord<String, String>(TWITTER_TOPIC, null, OBJECT_MAPPER.writeValueAsString(tweetData)),
 						new Callback() {
 
 							@Override
@@ -50,6 +54,7 @@ public class ProducerKafkaTwitter {
 								}
 							}
 						});
+			}
 			
 		  
 		} catch (IOException e) {
