@@ -20,7 +20,7 @@ import com.kafka.advanced.tweet.dto.TweetData;
 
 public class ProducerKafkaTwitter {
 	private static Logger logger = LoggerFactory.getLogger(ProducerKafkaTwitter.class.getName());
-	private static final String TWITTER_TOPIC = "twitter_topic_kafka_new_1";
+	private static final String TWITTER_TOPIC = "twitter_topic_kafka";
 
 	public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
 			.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -43,7 +43,7 @@ public class ProducerKafkaTwitter {
 			}));
 			
 			for (Tweet tw : tweets) {
-				TweetData tweetData = new TweetData(tw.getId(), tw.getText());
+				TweetData tweetData = new TweetData(tw.getId(), tw.getText(), tw.getLikeCount());
 				kafkaProducer.send(new ProducerRecord<String, String>(TWITTER_TOPIC, null, OBJECT_MAPPER.writeValueAsString(tweetData)),
 						new Callback() {
 

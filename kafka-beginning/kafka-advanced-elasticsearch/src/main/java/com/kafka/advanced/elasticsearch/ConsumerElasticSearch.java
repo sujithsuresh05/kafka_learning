@@ -42,17 +42,17 @@ public class ConsumerElasticSearch {
 
 	private static Logger logger = LoggerFactory.getLogger(ConsumerElasticSearch.class.getName());
 	private static final String BOOTSTRAP_SERVER = "localhost:9092";
-	private static String topic = "twitter_topic_kafka_new_1";
+	private static String topic = "twitter_topic_kafka";
 	private static String group = "twitter_group";
 	public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
 			.setSerializationInclusion(JsonInclude.Include.NON_NULL)
 			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 	public static void main(String[] args) throws IOException {
-		RestHighLevelClient restHighLevelClient = createClient();
+		final RestHighLevelClient restHighLevelClient = createClient();
 
 		// create consumer groups
-		KafkaConsumer<String, String> kafkaConsumer = createKafkaConsumer();
+		final KafkaConsumer<String, String> kafkaConsumer = createKafkaConsumer();
 
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			// close the client grace fully
